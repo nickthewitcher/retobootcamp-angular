@@ -1,0 +1,149 @@
+
+<div class="container">
+    <div [hidden]="submitted">
+      <h4 class="modal-title">Simulador de Compras con Tarjeta</h4>
+
+      <p>Por favor, ingrese los siguientes datos:</p>
+
+      <form (ngSubmit)="onSubmitted()" #simulatorForm="ngForm">
+
+        <div class="form-group">
+          <label for="dni">Dni</label>
+          <input type="text" class="form-control" id="dni"
+                 required
+                 [(ngModel)]="dni" name="dni"
+                 #dniname="ngModel">
+          <div [hidden]="dniname.valid || dniname.pristine" class="alert alert-danger">
+            Dni es requerido
+          </div>
+        </div>
+
+        <!-- <div class="form-group">
+           <label for="alterEgo">Alter Ego</label>
+           <input type="text" class="form-control" id="alterEgo"
+                  [(ngModel)]="model.alterEgo" name="alterEgo">
+         </div>-->
+
+        <div class="form-group">
+          <label for="tipoTarjeta">Tipo Tarjeta</label>
+          <select class="form-control" id="tipoTarjeta"
+                  required
+                  [(ngModel)]="tipoTarjeta" name="tipoTarjetaname"
+                  #tipoTarjetaname="ngModel">
+            <option *ngFor="let tipoTarjeta of listaTipoTarjetas" [value]="tipoTarjeta">{{tipoTarjeta}}</option>
+          </select>
+          <div [hidden]="tipoTarjetaname.valid || tipoTarjetaname.pristine" class="alert alert-danger">
+            tipoTarjeta es requerido
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="monto">Monto</label>
+          <input type="text" class="form-control" id="monto"
+                 required
+                 [(ngModel)]="monto" name="montoname"
+                 #montoname="ngModel">
+          <div [hidden]="montoname.valid || montoname.pristine" class="alert alert-danger">
+            Monto es requerido
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="cuotas">Cuotas a financiar</label>
+          <select class="form-control" id="cuotas"
+                  required
+                  [(ngModel)]="cuotas" name="cuotasname"
+                  #cuotasname="ngModel">
+            <option *ngFor="let cuotas of listaCuotas" [value]="cuotas">{{cuotas}}</option>
+          </select>
+          <div [hidden]="cuotasname.valid || cuotasname.pristine" class="alert alert-danger">
+            Cuota es requerido
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="tasas">Tasas</label>
+          <select class="form-control" id="tasas"
+                  required
+                  [(ngModel)]="tasa" name="tasasname"
+                  #tasasname="ngModel">
+            <option *ngFor="let tasas of listaTasas" [value]="tasas">{{tasas}}</option>
+          </select>
+          <div [hidden]="tasasname.valid || tasasname.pristine" class="alert alert-danger">
+            Tasa es requerido
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="diapago">Día de pago</label>
+          <select class="form-control" id="diapago"
+                  required
+                  [(ngModel)]="diapago" name="diapagoname"
+                  #diapagoname="ngModel">
+            <option *ngFor="let diapago of listaDiaPagos" [value]="diapago">{{diapago}}</option>
+          </select>
+          <div [hidden]="diapagoname.valid || diapagoname.pristine" class="alert alert-danger">
+            Dia Pago es requerido
+          </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-success" style="margin-right: 2em" [disabled]="!simulatorForm.form.valid" (click)="enviarDatos();" >Continuar</button>
+        <button type="button" class="btn btn-secondary" (click)="resetFormulario(); simulatorForm.reset()">Limpiar</button>
+
+        <!--  &nbsp;&nbsp;
+          <button type="button" class="btn btn-default" (click)="newHero()">New Hero</button>
+          <i>without</i> reset-->
+
+        <!-- NOT SHOWN IN DOCS -->
+        <!-- <div>
+           <hr>
+           Name via form.controls = {{showFormControls(qrForm)}}
+         </div>-->
+        <!-- - -->
+      </form>
+    </div>
+
+    <div [hidden]="!submitted">
+      <div class="row">
+        <h4 class="modal-title">Simulador de Compras con Tarjeta</h4>
+        <br>
+        <div class="container text-center">
+          <div>
+            <p>Tu cuota mensual estimada es:</p>
+          </div>
+          <div>
+            <h2>{{moneda}} {{cuota}}</h2>
+
+          </div>
+          <div> <p>Fecha primera cuota: </p><h4>{{primeraCuota}}</h4>
+
+          </div>
+          <br>
+          <div>
+            <ul>
+              <li>Cuota Mensual: El valor de la cuota corresponde solo al monto de la compra, no incluye otros gastos y comisiones.</li>
+              <li>Para la simulación de tu compra se ha considerado el envío electrónico del estado de cuenta, el cual no tiene costo.</li>
+            </ul>
+          </div>
+
+
+        </div>
+       </div>
+
+      <br>
+
+      <button class="btn btn-primary" style="margin-right: 2em" (click)="volverAPrincipal()">Volver a Simular</button>
+
+
+
+    </div>
+  </div>
+
+
+  <!--<p>
+    <button class="btn btn-lg btn-outline-primary" (click)="openAddQR()">
+      Launch demo modal
+    </button>
+  </p>-->
